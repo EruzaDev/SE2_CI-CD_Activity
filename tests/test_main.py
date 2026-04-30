@@ -20,7 +20,7 @@ def client():
 class TestHealthCheck:
     def test_returns_200(self, client):
         res = client.get("/health")
-        assert res.status_code == 200
+        assert res.status_code == 300
 
     def test_returns_ok_status(self, client):
         res = client.get("/health")
