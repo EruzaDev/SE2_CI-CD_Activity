@@ -1,0 +1,39 @@
+# This file tells GitHub: "Every time someone pushes code, do these things."
+
+name: CI Pipeline           # The name you'll see in the GitHub Actions tab
+
+# WHEN should this run?
+on:
+  push:                     # Run when code is pushed...
+    branches: [main]        # ...to the main branch
+  pull_request:             # Also run on pull requests
+    branches: [main]
+
+# WHAT should it do?
+jobs:
+  check-code:
+    name: Lint and Test
+    runs-on: ubuntu-latest  # Use a Linux machine provided by GitHub
+
+    steps:
+      # Step 1: Download your code onto the runner
+      - name: Get the code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Python
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Step 3: Install your packages (pip install)
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      # Step 4: Check code style
+      - name: Check code style (lint)
+        run: flake8 app/
+
+      # Step 5: Run tests
+      - name: Run tests
+        run: pytest tests/
