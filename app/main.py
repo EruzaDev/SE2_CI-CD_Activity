@@ -7,7 +7,7 @@ app = Flask(__name__)
 # -------------------------------------------------------------------
 users = [
     {"id": 1, "name": "Alice", "email": "alice@example.com"},
-    {"id": 2, "name": "Bob",   "email": "bob@example.com"},
+    {"id": 2, "name": "Bob", "email": "bob@example.com"},
 ]
 next_id = 3
 
@@ -15,6 +15,7 @@ next_id = 3
 # -------------------------------------------------------------------
 # Routes
 # -------------------------------------------------------------------
+
 
 @app.route("/api/users", methods=["GET"])
 def get_users():
@@ -74,6 +75,7 @@ def delete_user(user_id):
 # Helper
 # -------------------------------------------------------------------
 
+
 def _find(user_id):
     return next((u for u in users if u["id"] == user_id), None)
 
@@ -82,9 +84,11 @@ def _find(user_id):
 # Error handlers
 # -------------------------------------------------------------------
 
+
 @app.errorhandler(404)
 def not_found(e):
     return jsonify({"error": "Route not found."}), 404
+
 
 @app.errorhandler(405)
 def method_not_allowed(e):
